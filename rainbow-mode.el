@@ -1025,9 +1025,7 @@ background is COLOR. The foreground is computed using
   (let ((match (or match 0)))
     (put-text-property
      (match-beginning match) (match-end match)
-     'face `((:foreground ,(if (> 0.5 (rainbow-x-color-luminance color))
-                               "white" "black"))
-             (:background ,color)))))
+     'face `((:box (:line-width (2 . 2) :color ,color :style nil))))))
 
 (defun rainbow-colorize-itself (&optional match)
   "Colorize a match with itself."
@@ -1107,8 +1105,8 @@ If the percentage value is above 100, it's converted to 100."
                                          'foreground-color)
                                        face-property)
                                  (assq (if xterm-color?
-                                           :background
-                                         'background-color)
+                                           :box
+                                         (:box (:line-width (2 . 2) :color 'background-color :style nil)))
                                        face-property))))))
     (when color
       (rainbow-colorize-match color))))
